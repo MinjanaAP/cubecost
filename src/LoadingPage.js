@@ -15,36 +15,63 @@ import "./LoadingPage.css";
 const App = () => {
   const [distance, setDistance] = useState("");
   const [businesses, setBusinesses] = useState("");
-  const [area, setArea] = useState(50);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [area, setArea] = useState(""); 
+  const [predictedPrice, setPredictedPrice] = useState(null); 
+  const [distanceError,setDistanceError] = useState("");
+  const [businessError, setBusinessesError] = useState("");
+  const [areaError,setAreaError] = useState(""); 
+  
 
   const handlePrediction = async () => {
-    // Prepare the JSON object
+
+    setDistanceError("");
+    setAreaError("");
+    setBusinessesError("");
+
+      //! Validate input fields
+    if (!distance || isNaN(distance) || parseFloat(distance) <= 0) {
+      // alert("Please enter a valid positive number for Distance.");
+      setDistanceError("Please enter a valid positive number for Distance.");
+      return;
+    }
+
+    if (!businesses || isNaN(businesses) || parseInt(businesses) <= 0) {
+      // alert("Please enter a valid positive integer for Number of Businesses.");
+      setBusinessesError("Please enter a valid positive integer for Number of Businesses.")
+      return;
+    }
+
+    if (!area || isNaN(area) || parseFloat(area) <= 0) {
+      // alert("Please enter a valid positive number for Area.");
+      setAreaError("Please enter a valid positive number for Area.");
+      return;
+    }
+
     const requestData = {
       distance: parseFloat(distance),
       businesses: parseInt(businesses),
       area: parseFloat(area),
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
     };
-
+  
     console.log("Request Data:", requestData);
-
-    
+  
     try {
-      const response = await fetch("https://example.com/api/predict", {
+      const response = await fetch("https://43d4-34-106-156-70.ngrok-free.app/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
       });
-
+  
       const responseData = await response.json();
-      console.log("API Response:", responseData);
+      const formattedPrice = parseFloat(responseData.price).toFixed(2);
+      console.log("Formatted Price:", formattedPrice);
+
+      setPredictedPrice(formattedPrice);
     } catch (error) {
       console.error("Error sending data to the API:", error);
+      setPredictedPrice("Error fetching data");
     }
   };
 
@@ -66,10 +93,11 @@ const App = () => {
         }}
       >
         {/* Header */}
-        <Typography variant="h3" color="#a6a6a6" gutterBottom className="title">
+        <Typography mb={0} variant="h3" color="#a6a6a6" gutterBottom className="title">
           CubeCost
         </Typography>
         <Typography
+          mb={6}
           variant="h6"
           color="#FFC857"
           gutterBottom
@@ -107,7 +135,7 @@ const App = () => {
               p: 3,
             }}
           >
-            <Typography variant="h5" color="#1A3E5D" gutterBottom>
+            <Typography variant="h5" color="#1A3E5D" gutterBottom >
               Enter Warehouse Details
             </Typography>
 
@@ -119,6 +147,7 @@ const App = () => {
               value={distance}
               onChange={(e) => setDistance(e.target.value)}
             />
+            <span className="error_message">{distanceError}</span>
             <TextField
               label="Number of Businesses"
               variant="outlined"
@@ -127,37 +156,16 @@ const App = () => {
               value={businesses}
               onChange={(e) => setBusinesses(e.target.value)}
             />
-            <Typography color="textSecondary" sx={{ mt: 2 }}>
-              Expected Area (sqm)
-            </Typography>
-            <Slider
+            <span className="error_message">{businessError}</span>
+            <TextField
+              label="Expected Area (sqm)"
+              variant="outlined"
+              fullWidth
+              margin="normal"
               value={area}
-              onChange={(e, value) => setArea(value)}
-              aria-label="Expected Area"
-              valueLabelDisplay="auto"
-              min={10}
-              max={500}
+              onChange={(e) => setArea(e.target.value)}
             />
-            <TextField
-              label="Latitude"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              type="number"
-              step="any"
-              value={latitude}
-              onChange={(e) => setLatitude(e.target.value)}
-            />
-            <TextField
-              label="Longitude"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              type="number"
-              step="any"
-              value={longitude}
-              onChange={(e) => setLongitude(e.target.value)}
-            />
+            <span className="error_message">{areaError}</span>
             <Button
               variant="contained"
               sx={{
@@ -194,7 +202,7 @@ const App = () => {
               variant="h2"
               sx={{ fontWeight: "bold", color: "#FFC857" }}
             >
-              $1234.56
+              {predictedPrice !== null ? `${predictedPrice}` : "$$$"}
             </Typography>
             <TrendingUpIcon sx={{ fontSize: 60, mt: 2 }} />
           </Grid>

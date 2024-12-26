@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { Button, Grid, Box, Hidden } from "@mui/material";
 import "./Header.css";
 
 function Header() {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // Update the path to match the one defined in App.js
+    navigate("/loading"); 
+  };
+
   return (
     <header className="header">
       {/* Container Grid for responsive layout */}
@@ -24,7 +32,7 @@ function Header() {
             <Button color="inherit" className="nav-button">Functional Areas</Button>
             <Button color="inherit" className="nav-button">Solution</Button>
             <Button color="inherit" className="nav-button">Contact</Button>
-            <Button variant="contained" color="primary" className="nav-button" id="consult-btn">Consultation</Button>
+            <Button variant="contained" color="primary" className="nav-button" id="consult-btn"  onClick={handleButtonClick} >Consultation</Button>
           </Grid>
         </Hidden>
           <Box display="flex" justifyContent="flex-end" gap={2}>
