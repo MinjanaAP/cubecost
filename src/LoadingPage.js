@@ -202,7 +202,7 @@ const App = () => {
               variant="h2"
               sx={{ fontWeight: "bold", color: "#FFC857" }}
             >
-              {predictedPrice !== null ? `${predictedPrice}` : "$$$"}
+              {predictedPrice !== null ? `LKR : ${predictedPrice}` : "$$$"}
             </Typography>
             <TrendingUpIcon sx={{ fontSize: 60, mt: 2 }} />
           </Grid>
