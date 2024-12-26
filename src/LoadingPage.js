@@ -20,6 +20,7 @@ const App = () => {
   const [distanceError,setDistanceError] = useState("");
   const [businessError, setBusinessesError] = useState("");
   const [areaError,setAreaError] = useState(""); 
+  const [resError,setResError] = useState("");
   
 
   const handlePrediction = async () => {
@@ -56,7 +57,7 @@ const App = () => {
     console.log("Request Data:", requestData);
   
     try {
-      const response = await fetch("https://43d4-34-106-156-70.ngrok-free.app/predict", {
+      const response = await fetch("https://6150-34-106-156-70.ngrok-free.app/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,6 +68,11 @@ const App = () => {
       const responseData = await response.json();
       const formattedPrice = parseFloat(responseData.price).toFixed(2);
       console.log("Formatted Price:", formattedPrice);
+      // console.log("response Error"+ responseData.error)
+
+      if(responseData.error){
+        alert("Backend model throws an error : " + responseData.error)
+      }
 
       setPredictedPrice(formattedPrice);
     } catch (error) {
