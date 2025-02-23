@@ -14,7 +14,7 @@
 .head-title-medium{
   font-family: "Playfair Display", serif !important;
   font-weight: 400 !important;
-  color: rgb(228, 219, 151);
+  color: rgb(239, 238, 223);
   text-align: left;
 }
 
@@ -65,6 +65,14 @@
   @media (max-width: 600px) {
     .description {
       text-align: center;
+    }
+
+    .head-title-small{
+      color: #f5f5f5;
+      font-size: 14px !important;
+      font-weight: 200 !important;
+      line-height: 25px !important;
+      margin-bottom: 10vh !important;
     }
   }
   
