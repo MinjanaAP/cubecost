@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import CircularProgress from '@mui/material/CircularProgress';
 import "./LoadingPage.css";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
   const [distanceError,setDistanceError] = useState("");
   const [businessError, setBusinessesError] = useState("");
   const [areaError,setAreaError] = useState(""); 
+  const [loading, setLoading] = useState(false);
   const [resError,setResError] = useState("");
   
 
@@ -28,6 +30,8 @@ const App = () => {
     setDistanceError("");
     setAreaError("");
     setBusinessesError("");
+
+    
 
       //! Validate input fields
     if (!distance || isNaN(distance) || parseFloat(distance) <= 0) {
@@ -47,6 +51,9 @@ const App = () => {
       setAreaError("Please enter a valid positive number for Area.");
       return;
     }
+
+    setLoading(true);
+    setPredictedPrice(" ");
 
     const requestData = {
       distance: parseFloat(distance),
@@ -74,6 +81,7 @@ const App = () => {
         alert("Backend model throws an error : " + responseData.error)
       }
 
+      setLoading(false);
       setPredictedPrice(formattedPrice);
     } catch (error) {
       console.error("Error sending data to the API:", error);
@@ -204,12 +212,23 @@ const App = () => {
             <Typography variant="h4" gutterBottom>
               Predicted Price
             </Typography>
-            <Typography
-              variant="h2"
-              sx={{ fontWeight: "bold", color: "#FFC857" }}
-            >
-              {predictedPrice !== null ? `LKR : ${predictedPrice}` : "$$$"}
-            </Typography>
+            {loading=== true ? (
+              <>
+                  <Box sx={{ display: 'flex' }}>
+                    <CircularProgress color="#FFC857" />
+                  </Box>
+                  <span className="loading_message">It may take a while...</span>
+              </>
+            ):<>
+                <Typography
+                  variant="h2"
+                  sx={{ fontWeight: "bold", color: "#FFC857" }}
+                >
+                  {predictedPrice !== null ? `LKR : ${predictedPrice}` : "$$$"}
+                </Typography>
+              </> 
+            }
+            
             <TrendingUpIcon sx={{ fontSize: 60, mt: 2 }} />
           </Grid>
         </Grid>

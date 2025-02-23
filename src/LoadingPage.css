@@ -8,3 +8,7 @@
 .error_message{
     color: red;
 }
+
+.loading_message{
+    color: #FFC857;
+}
