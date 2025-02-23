@@ -57,7 +57,7 @@ const App = () => {
     console.log("Request Data:", requestData);
   
     try {
-      const response = await fetch("https://6150-34-106-156-70.ngrok-free.app/predict", {
+      const response = await fetch("https://cubecost-backend.onrender.com/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
