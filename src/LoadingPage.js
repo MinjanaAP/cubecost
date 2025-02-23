@@ -103,7 +103,7 @@ const App = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          px: 2,
+          px: 5,
         }}
       >
         {/* Header */}
@@ -131,12 +131,13 @@ const App = () => {
           spacing={4}
           sx={{
             maxWidth: "1200px",
-            margin: "0 auto",
+            margin: "0",
             backgroundColor: "rgba(255, 255, 255, 0.9)",
             boxShadow: 3,
             borderRadius: 2,
             overflow: "hidden",
           }}
+          
         >
           {/* Input Section */}
           <Grid
