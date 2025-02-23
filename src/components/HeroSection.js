@@ -44,7 +44,7 @@ function HeroSection() {
         </Grid>
 
         {/* Image Section - Takes up the remaining 8 columns */}
-        <Grid item xs={12} sm={4} md={4}>
+        {/* <Grid item xs={12} sm={4} md={4}>
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <Card>
@@ -57,7 +57,7 @@ function HeroSection() {
               </Card>
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );
