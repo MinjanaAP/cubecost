@@ -13,3 +13,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.main-dev{
+  background-image: url('../public/images/background-home.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {  
+  .main-dev{
+    background-image: url('../public/images/loading-back-cover.png');
+  }
+}
